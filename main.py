@@ -32,13 +32,18 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-
+        # update all updateable objects
         updatable.update(dt)
-
+        # detect if player hit an asteroid
         for asteroid in asteroids:
             if player_1.collision(asteroid):
                 print("Game over!")
                 running = False  
+        for asteroid in asteroids:
+            for shot in shots:
+                if asteroid.collision(shot):
+                    shot.kill()
+                    asteroid.kill()
 
         screen.fill((0, 0, 0))
 
